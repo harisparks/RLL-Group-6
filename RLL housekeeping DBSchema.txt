@@ -1,0 +1,43 @@
+CREATE TABLE admin (
+    admin_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255),
+    password VARCHAR(255),
+    hostel VARCHAR(255)
+);
+
+CREATE TABLE clean_request (
+    request_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    date DATE,
+    cleanTime TIME,
+    feedback_status BOOLEAN,
+    rollnumber VARCHAR(255),
+    worker_id BIGINT,
+    req_status BOOLEAN,
+    FOREIGN KEY (rollnumber) REFERENCES student(rollnumber),
+    FOREIGN KEY (worker_id) REFERENCES worker(worker_id)
+);
+
+
+CREATE TABLE feedback (
+    feedback_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    rollnumber VARCHAR(255),
+    request_id BIGINT,
+    feedback TEXT,
+    FOREIGN KEY (rollnumber) REFERENCES student(rollnumber),
+    FOREIGN KEY (request_id) REFERENCES cleaning_request(request_id)
+);
+
+CREATE TABLE student (
+    rollnumber BIGINT PRIMARY KEY,
+    password VARCHAR(255),
+    floor INT,
+    hostel VARCHAR(255),
+    room VARCHAR(255)
+);
+
+CREATE TABLE worker (
+    worker_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    floor INT,
+    hostel VARCHAR(255)
+);
